@@ -43,7 +43,7 @@ pip install -r requirements.txt
 
 This project was developed as part of a university course on face detection and analysis  
 at the Faculty of Applied Sciences, University of West Bohemia.
-Рутфтшщьг Full Name or Nickname]
+[Henaniomu]
 - GitHub: [https://github.com/Henaniomu](https://github.com/Henaniomu)
 - Year: 2025
 
