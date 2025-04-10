@@ -27,8 +27,8 @@ This project is part of a university course and demonstrates various face detect
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-name/your-repo.git
-cd your-repo
+git clone https://github.com/Henaniomu/ZVI.git
+cd ZVI
 
 # Create virtual environment
 python -m venv venv
@@ -43,7 +43,7 @@ pip install -r requirements.txt
 
 This project was developed as part of a university course on face detection and analysis  
 at the Faculty of Applied Sciences, University of West Bohemia.
-[Henaniomu]
+- Henaniomu
 - GitHub: [https://github.com/Henaniomu](https://github.com/Henaniomu)
 - Year: 2025
 
