@@ -37,6 +37,8 @@ source venv/bin/activate  # or venv\\Scripts\\activate on Windows
 # Install dependencies
 pip install -r requirements.txt
 
+```
+
 ## 👨‍💻 Author
 
 This project was developed as part of a university course on face detection and analysis  
