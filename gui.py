@@ -60,7 +60,7 @@ if option == "Face Comparison (Landmark Embeddings)":
                 else:
                     st.error("Faces are likely different.")
 
-                # графік
+                # Graph
                 fig, ax = plt.subplots(figsize=(10, 4))
                 ax.plot(similarities, marker='o')
                 ax.set_title("Cosine Similarity per Landmark")

@@ -4,11 +4,11 @@ import os
 import argparse
 from tqdm import tqdm
 
-# Модель и конфигурация
+# Model and conf
 MODEL_FILE = "models/res10_300x300_ssd_iter_140000.caffemodel"
 CONFIG_FILE = "models/deploy.prototxt"
 
-# Загрузка сети
+# DNN load
 net = cv2.dnn.readNetFromCaffe(CONFIG_FILE, MODEL_FILE)
 
 def detect_faces_dnn(image_path, save=True, show=False):
