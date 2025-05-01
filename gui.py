@@ -7,6 +7,9 @@ import matplotlib.pyplot as plt
 from detectors.compare_detectors import run_face_detection, plot_detection_stats
 from detectors.landmarks import run_landmarks
 from detectors.embeddings import extract_landmark_hog_descriptors, compare_hog_descriptors
+from detectors.Lenc_Kral_recognition import compare_faces_lenc_kral_enhanced
+from detectors.dlib_recognition import compare_faces_dlib
+
 
 
 st.set_page_config(page_title="Face Processing Utility", layout="centered")
@@ -17,7 +20,9 @@ option = st.selectbox(
     (
         "Face Detection (Haar + DNN)",
         "Face Landmarks (Dlib)",
-        "Face Comparison (Landmark Embeddings)"
+        "Face Comparison (Landmark Embeddings)",
+        "Face Comparison (Lenc-Kral SIFT)",
+        "Face Comparison (Dlib Embeddings)"
     )
 )
 
@@ -116,3 +121,71 @@ elif option == "Face Landmarks (Dlib)":
             st.subheader(res["filename"])
             st.image(res["output_img"], caption="Landmarks", use_container_width=True)
 
+# ========== Enhanced Lenc-Kral SIFT Comparison ==========
+if option == "Face Comparison (Lenc-Kral SIFT)":
+    st.subheader("Enhanced Lenc-Kral SIFT comparison")
+    uploaded_file1 = st.file_uploader("First image", type=["jpg", "jpeg", "png"], key="lenc_enh1")
+    uploaded_file2 = st.file_uploader("Second image", type=["jpg", "jpeg", "png"], key="lenc_enh2")
+
+    if uploaded_file1 and uploaded_file2:
+        path1 = "enh_temp1.jpg"
+        path2 = "enh_temp2.jpg"
+        with open(path1, "wb") as f:
+            f.write(uploaded_file1.read())
+        with open(path2, "wb") as f:
+            f.write(uploaded_file2.read())
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.image(Image.open(path1), caption="Image 1", use_container_width=True)
+        with col2:
+            st.image(Image.open(path2), caption="Image 2", use_container_width=True)
+
+        if st.button("Compare Faces (Enhanced Lenc-Kral)"):
+            similarity = compare_faces_lenc_kral_enhanced(path1, path2)
+            
+            similarity_score = round(similarity * 100, 2)
+            st.success(f"Enhanced Similarity score: {similarity_score}%")
+
+            if similarity_score > 75:
+                st.info("Faces are very likely the same person.")
+            elif similarity_score > 50:
+                st.warning("Faces might be the same person.")
+            else:
+                st.error("Faces are likely different.")
+
+
+# ========== Dlib Face Recognition ==========
+if option == "Face Comparison (Dlib Embeddings)":
+    st.subheader("Face Comparison with Dlib Embeddings")
+    uploaded_file1 = st.file_uploader("First image", type=["jpg", "jpeg", "png"], key="dlib1")
+    uploaded_file2 = st.file_uploader("Second image", type=["jpg", "jpeg", "png"], key="dlib2")
+
+    if uploaded_file1 and uploaded_file2:
+        path1 = "dlib_temp1.jpg"
+        path2 = "dlib_temp2.jpg"
+        with open(path1, "wb") as f:
+            f.write(uploaded_file1.read())
+        with open(path2, "wb") as f:
+            f.write(uploaded_file2.read())
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.image(Image.open(path1), caption="Image 1", use_container_width=True)
+        with col2:
+            st.image(Image.open(path2), caption="Image 2", use_container_width=True)
+
+        if st.button("Compare Faces (Dlib)"):
+            similarity = compare_faces_dlib(path1, path2)
+
+            if similarity is None:
+                st.error("Could not process one or both images.")
+            else:
+                st.success(f"Dlib Similarity score: {similarity}%")
+
+                if similarity >= 80:
+                    st.info("Faces are very likely the same person.")
+                elif similarity >= 50:
+                    st.warning("Faces might be the same person.")
+                else:
+                    st.error("Faces are likely different.")

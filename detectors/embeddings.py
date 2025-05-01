@@ -13,7 +13,7 @@ PATCH_RADIUS = 16
 important_indices = list(range(17, 36)) + list(range(36, 48)) + list(range(48, 68))
 
 hog = cv2.HOGDescriptor(_winSize=(64, 64), _blockSize=(16, 16),
-                        _blockStride=(8, 8), _cellSize=(8, 8),
+                        _blockStride=(4, 4), _cellSize=(8, 8),
                         _nbins=9)
 
 
